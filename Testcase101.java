@@ -3,6 +3,8 @@ package com.org.happyfox;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -15,19 +17,28 @@ public class Testcase101 {
 
     public static void main(String[] args) throws InterruptedException, AWTException {
         System.setProperty("webdriver.gecko.driver", "C:\\Users\\Johny\\Downloads\\geckodriver-v0.33.0-win64\\geckodriver.exe");
+        //instead of providing a path directly for driver we should use a config or property file for the same
         WebDriver driver = new FirefoxDriver();
         driver.get("https://interview.supporthive.com/staff/");
+        //we could maintain a base url and just send end path and make a function for it
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        //An implicit wait for 30 seconds is too much, we should think of how can we reduce it
         driver.manage().window().maximize();
         driver.findElement(By.id("id_username")).sendKeys("Agent");
         driver.findElement(By.id("id_password")).sendKeys("Agent@123");
+        //instead of sending username and password directly in hardcoded manner we should use data provider for abstraction and security
+
         driver.findElement(By.id("btn-submit")).click();
         WebElement tickets = driver.findElement(By.id("ember29"));
+        //since a single element is returned by findElement use variable "ticket" and not "tickets"
         Actions action = new Actions(driver);
         action.moveToElement(tickets).build().perform();
         WebElement statuses = driver.findElement(By.linkText("Statuses"));
         statuses.click();
         driver.findElement(By.xpath("/html/body/div[3]/div/section/section/div/header/button")).click();
+    // Consider using more reliable and maintainable locators such as IDs or classes instead of absolute XPath.
+
+
         driver.findElement(By.tagName("input")).sendKeys("Issue Created");
         WebElement statusColourSelect = driver.findElement(By.xpath("//div[@class='sp-replacer sp-light']"));
         statusColourSelect.click();
@@ -54,6 +65,7 @@ public class Testcase101 {
         moveTo.click();
 
         Thread.sleep(9000);
+        //A wait of 9 seconds is too much, try using explicit waits here 
 
         WebElement issue = driver.findElement(By.xpath("//div[contains(text(),'Issue Created')]"));
         action.moveToElement(issue).build().perform();
@@ -75,6 +87,8 @@ public class Testcase101 {
         priorities2.click();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.findElement(By.xpath("/html[1]/body[1]/div[3]/div[1]/section[1]/section[1]/div[1]/div[1]/section[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/table[1]/tbody[1]/tr[9]/td[2]")).click();
+            // Consider using a more reliable and maintainable locator strategy instead of absolute XPath.
+
         driver.findElement(By.linkText("Delete")).click();
         WebElement delete = driver.findElement(By.cssSelector("button[data-test-id='delete-dependants-primary-action']"));
         delete.click();
@@ -84,10 +98,12 @@ public class Testcase101 {
         driver.findElement(By.linkText("Logout")).click();
     }
 
+    //proper POM model is not implemented here, we should create different packages for test files and test pages
     
     // Method to automate login and navigate to homepage
     public class PagesforAutomationAssignment {
 
+        //instead of main method we should set up a beforeclass or beforetest method here
         public static void main(String[] args) {
             ChromeDriver driver = new ChromeDriver();
             driver.get("https://www.happyfox.com");
@@ -139,6 +155,7 @@ public class Testcase101 {
                 if (!driver.getCurrentUrl().equals("https://www.happyfox.com/home")) {
                     throw new IllegalStateException("Not on the home page");
                 }
+                //A proper try catch should be used here in such cases
             }
 
             // Method to navigate to user profile
@@ -164,9 +181,10 @@ public class Testcase101 {
                     WebElement row = rows.get(i);
                     String rowText = row.getText();
                     System.out.println("Row " + i + " Text: " + rowText);
+                    //print statements should only be used for minor debugging and should not be merged to main repo
                 }
             }
         }
+
     }
 }
-
