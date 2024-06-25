@@ -3,6 +3,8 @@ package com.org.happyfox;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -32,6 +34,9 @@ public class Testcase101 {
         WebElement statuses = driver.findElement(By.linkText("Statuses"));
         statuses.click();
         driver.findElement(By.xpath("/html/body/div[3]/div/section/section/div/header/button")).click();
+    // Consider using more reliable and maintainable locators such as IDs or classes instead of absolute XPath.
+
+
         driver.findElement(By.tagName("input")).sendKeys("Issue Created");
         WebElement statusColourSelect = driver.findElement(By.xpath("//div[@class='sp-replacer sp-light']"));
         statusColourSelect.click();
@@ -58,6 +63,7 @@ public class Testcase101 {
         moveTo.click();
 
         Thread.sleep(9000);
+        //A wait of 9 seconds is too much, try using explicit waits here 
 
         WebElement issue = driver.findElement(By.xpath("//div[contains(text(),'Issue Created')]"));
         action.moveToElement(issue).build().perform();
@@ -79,6 +85,8 @@ public class Testcase101 {
         priorities2.click();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.findElement(By.xpath("/html[1]/body[1]/div[3]/div[1]/section[1]/section[1]/div[1]/div[1]/section[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/table[1]/tbody[1]/tr[9]/td[2]")).click();
+            // Consider using a more reliable and maintainable locator strategy instead of absolute XPath.
+
         driver.findElement(By.linkText("Delete")).click();
         WebElement delete = driver.findElement(By.cssSelector("button[data-test-id='delete-dependants-primary-action']"));
         delete.click();
@@ -171,6 +179,6 @@ public class Testcase101 {
                 }
             }
         }
+        
     }
 }
-
