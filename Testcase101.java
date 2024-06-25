@@ -18,11 +18,15 @@ public class Testcase101 {
         WebDriver driver = new FirefoxDriver();
         driver.get("https://interview.supporthive.com/staff/");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        //An implicit wait for 30 seconds is too much, we should think of how can we reduce it
         driver.manage().window().maximize();
         driver.findElement(By.id("id_username")).sendKeys("Agent");
         driver.findElement(By.id("id_password")).sendKeys("Agent@123");
+//instead of sending username and password directly in hardcoded manner we should use data provider for abstraction and security
+
         driver.findElement(By.id("btn-submit")).click();
         WebElement tickets = driver.findElement(By.id("ember29"));
+        //since a single element is returned by findElement use variable "ticket" and not "tickets"
         Actions action = new Actions(driver);
         action.moveToElement(tickets).build().perform();
         WebElement statuses = driver.findElement(By.linkText("Statuses"));
